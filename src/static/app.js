@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchActivities();
   }
 
-  // Check if user is already logged in (from localStorage)
+  // Restore authentication only after verifying the server-issued session
   function checkAuthentication() {
     updateAuthBodyClass();
     validateUserSession();
@@ -842,8 +842,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update current day filter and fetch activities
       currentDay = button.dataset.day;
       fetchActivities();
-      fetchAnnouncements();
-      setInterval(fetchAnnouncements, 60000);
     });
   });
 
@@ -1084,4 +1082,6 @@ document.addEventListener("DOMContentLoaded", () => {
   checkAuthentication();
   initializeFilters();
   fetchActivities();
+  fetchAnnouncements();
+  setInterval(fetchAnnouncements, 60000);
 });
