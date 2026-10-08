@@ -12,13 +12,14 @@
     />
   </head>
   <body>
-    <div class="announcement-banner">
-  📢 Activity registration is open until the end of the month. Don't lose your spot!
-</div>
+    <div id="announcement-banner" class="announcement-banner hidden" role="status" aria-live="polite"></div>
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
       <div id="user-controls">
+        <button id="manage-announcements" class="icon-button hidden" aria-haspopup="dialog">
+          <span aria-hidden="true">📢</span> Announcements
+        </button>
         <div id="user-status">
           <button id="login-button" class="icon-button">
             <span class="user-icon">👤</span>
@@ -136,6 +137,48 @@
         <div id="login-message" class="hidden message"></div>
       </div>
     </div>
+
+    <dialog id="announcements-dialog" aria-labelledby="announcements-title" aria-describedby="announcements-description">
+      <div class="announcements-heading">
+        <div>
+          <h2 id="announcements-title">Announcements</h2>
+          <p id="announcements-description">Keep students informed. Schedule a message or publish it today.</p>
+        </div>
+        <button id="close-announcements" type="button" class="secondary-button" aria-label="Close announcements">✕</button>
+      </div>
+      <div class="announcements-layout">
+        <section class="announcement-history" aria-labelledby="announcement-list-title">
+          <h3 id="announcement-list-title">All announcements</h3>
+          <div id="announcement-list" aria-live="polite"></div>
+        </section>
+        <section aria-labelledby="announcement-form-title">
+          <h3 id="announcement-form-title">New announcement</h3>
+          <form id="announcement-form" novalidate>
+            <div class="form-group">
+              <label for="announcement-message">Message (required)</label>
+              <textarea id="announcement-message" rows="4" maxlength="2000" required aria-describedby="announcement-message-error"></textarea>
+              <p id="announcement-message-error" class="field-error" aria-live="polite"></p>
+            </div>
+            <div class="form-group">
+              <label for="announcement-start">Start date (optional)</label>
+              <input id="announcement-start" type="date" aria-describedby="announcement-date-help announcement-start-error" />
+              <p id="announcement-start-error" class="field-error" aria-live="polite"></p>
+            </div>
+            <div class="form-group">
+              <label for="announcement-expiration">Expiration date (required)</label>
+              <input id="announcement-expiration" type="date" required aria-describedby="announcement-date-help announcement-expiration-error" />
+              <p id="announcement-expiration-error" class="field-error" aria-live="polite"></p>
+            </div>
+            <p id="announcement-date-help" class="announcement-help">Dates use UTC. Starts at midnight; expires at the beginning of the expiration date. Leave start blank to publish immediately.</p>
+            <div class="announcement-actions">
+              <button id="save-announcement" type="submit">Publish announcement</button>
+              <button id="reset-announcement" type="button" class="secondary-button">Clear / New</button>
+            </div>
+          </form>
+        </section>
+      </div>
+      <p id="announcement-feedback" class="message hidden" role="status" aria-live="polite"></p>
+    </dialog>
 
     <script src="app.js"></script>
   </body>
